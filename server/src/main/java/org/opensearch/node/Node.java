@@ -346,6 +346,8 @@ public class Node implements Closeable {
                 .put(NODE_ATTRIBUTES.getKey() + SHARD_INDEXING_PRESSURE_ENABLED_ATTRIBUTE_KEY, "true")
                 .build();
 
+            logger.info("Eliatra OpenSearch Enterprise Distro (https://opensearch.eliatra.com)");
+
             final JvmInfo jvmInfo = JvmInfo.jvmInfo();
             logger.info(
                 "version[{}], pid[{}], build[{}/{}/{}], OS[{}/{}/{}], JVM[{}/{}/{}/{}]",

@@ -77,7 +77,7 @@ public class DistributionDownloadPlugin implements Plugin<Project> {
     private static final String SNAPSHOT_REPO_NAME_ES = "elasticsearch-snapshots";
     private static final String FAKE_SNAPSHOT_IVY_GROUP_ES = "elasticsearch-distribution-snapshot";
 
-    private static final String RELEASE_PATTERN_LAYOUT = "/core/opensearch/[revision]/[module]-min-[revision](-[classifier]).[ext]";
+    private static final String RELEASE_PATTERN_LAYOUT = "/[revision]/opensearch/x64/linux/tar/[module]-min-[revision](-[classifier]).[ext]";
     private static final String SNAPSHOT_PATTERN_LAYOUT =
         "/snapshots/core/opensearch/[revision]/[module]-min-[revision](-[classifier])-latest.[ext]";
 
@@ -198,13 +198,21 @@ public class DistributionDownloadPlugin implements Plugin<Project> {
         addIvyRepo(
             project,
             DOWNLOAD_REPO_NAME,
-            "https://artifacts.opensearch.org",
+            "https://maven.eliatra.com/artifactory",
             FAKE_IVY_GROUP,
-            "/releases" + RELEASE_PATTERN_LAYOUT,
-            "/release-candidates" + RELEASE_PATTERN_LAYOUT
+            "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT,
+            "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","arm64/linux/tar"),
+            "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","x64/windows/zip"),
+            "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT,
+            "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","arm64/linux/tar"),
+            "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","x64/windows/zip"),
+            "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT,
+            "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","arm64/linux/tar"),
+            "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","x64/windows/zip")
+
         );
 
-        addIvyRepo(project, SNAPSHOT_REPO_NAME, "https://artifacts.opensearch.org", FAKE_SNAPSHOT_IVY_GROUP, SNAPSHOT_PATTERN_LAYOUT);
+        addIvyRepo(project, SNAPSHOT_REPO_NAME, "https://maven.eliatra.com/artifactory", FAKE_SNAPSHOT_IVY_GROUP, SNAPSHOT_PATTERN_LAYOUT);
 
         addIvyRepo2(project, DOWNLOAD_REPO_NAME_ES, "https://artifacts-no-kpi.elastic.co", FAKE_IVY_GROUP_ES);
         addIvyRepo2(project, SNAPSHOT_REPO_NAME_ES, "https://snapshots-no-kpi.elastic.co", FAKE_SNAPSHOT_IVY_GROUP_ES);

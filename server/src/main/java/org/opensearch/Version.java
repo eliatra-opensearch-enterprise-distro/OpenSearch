@@ -527,7 +527,7 @@ public class Version implements Comparable<Version>, ToXContentFragment {
                 case "V_EMPTY":
                     continue;
             }
-            assert field.getName().matches("V(_\\d+)+(_(alpha|beta|rc)\\d+)?") : field.getName();
+            assert field.getName().matches("V(_\\d+)+(_(alpha|beta|rc|ee)\\d+)?") : field.getName();
             try {
                 versions.add(((Version) field.get(null)));
             } catch (final IllegalAccessException e) {

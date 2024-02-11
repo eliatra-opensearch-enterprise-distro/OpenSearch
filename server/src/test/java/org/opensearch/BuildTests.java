@@ -76,6 +76,28 @@ public class BuildTests extends OpenSearchTestCase {
         );
         assertTrue(build.getQualifiedVersion(), build.isProductionRelease());
 
+        assertTrue(
+            new Build(
+                Build.CURRENT.type(),
+                Build.CURRENT.hash(),
+                Build.CURRENT.date(),
+                Build.CURRENT.isSnapshot(),
+                "7.0.0-ee1",
+                Build.CURRENT.getDistribution()
+            ).isProductionRelease()
+        );
+
+        assertFalse(
+            new Build(
+                Build.CURRENT.type(),
+                Build.CURRENT.hash(),
+                Build.CURRENT.date(),
+                Build.CURRENT.isSnapshot(),
+                "7.0.0-ee1-alpha1",
+                Build.CURRENT.getDistribution()
+            ).isProductionRelease()
+        );
+
         assertFalse(
             new Build(
                 Build.CURRENT.type(),

@@ -125,7 +125,7 @@ public class InternalDistributionArchiveCheckPlugin implements Plugin<Project> {
             task.doLast(new Action<Task>() {
                 @Override
                 public void execute(Task task) {
-                    String licenseFilename = "APACHE-LICENSE-2.0.txt";
+                    String licenseFilename = "ELIATRA-LICENSE.txt";
                     final List<String> licenseLines;
                     try {
                         licenseLines = Files.readAllLines(project.getRootDir().toPath().resolve("licenses/" + licenseFilename));

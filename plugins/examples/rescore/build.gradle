@@ -34,6 +34,6 @@ opensearchplugin {
   name 'example-rescore'
   description 'An example plugin implementing rescore and verifying that plugins *can* implement rescore'
   classname 'org.opensearch.example.rescore.ExampleRescorePlugin'
-  licenseFile rootProject.file('licenses/APACHE-LICENSE-2.0.txt')
+  licenseFile rootProject.file('licenses/ELIATRA-LICENSE.txt')
   noticeFile rootProject.file('NOTICE.txt')
 }

@@ -308,8 +308,8 @@ final class RemoteResponseParsers {
             "version",
             true,
             a -> a[0] == null
-                ? LegacyESVersion.fromString(((String) a[1]).replace("-SNAPSHOT", "").replaceFirst("-(alpha\\d+|beta\\d+|rc\\d+)", ""))
-                : Version.fromString(((String) a[1]).replace("-SNAPSHOT", "").replaceFirst("-(alpha\\d+|beta\\d+|rc\\d+)", ""))
+                ? LegacyESVersion.fromString(((String) a[1]).replace("-SNAPSHOT", "").replaceFirst("-(alpha\\d+|beta\\d+|rc\\d+|ee\\d+)", ""))
+                : Version.fromString(((String) a[1]).replace("-SNAPSHOT", "").replaceFirst("-(alpha\\d+|beta\\d+|rc\\d+|ee\\d+)", ""))
         );
         versionParser.declareStringOrNull(optionalConstructorArg(), new ParseField("distribution"));
         versionParser.declareString(constructorArg(), new ParseField("number"));

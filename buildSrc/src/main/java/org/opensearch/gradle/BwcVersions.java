@@ -98,7 +98,7 @@ import static java.util.Collections.unmodifiableList;
 public class BwcVersions {
 
     private static final Pattern LINE_PATTERN = Pattern.compile(
-        "\\W+public static final (LegacyES)?Version V_(\\d+)_(\\d+)_(\\d+)(_alpha\\d+|_beta\\d+|_rc\\d+)? .*"
+        "\\W+public static final (LegacyES)?Version V_(\\d+)_(\\d+)_(\\d+)(_alpha\\d+|_beta\\d+|_rc\\d+|_ee\\d+)? .*"
     );
 
     private final Version currentVersion;
