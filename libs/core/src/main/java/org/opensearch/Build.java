@@ -48,6 +48,7 @@ import java.util.jar.Manifest;
  * @opensearch.internal
  */
 public class Build {
+
     /**
      * The current build of OpenSearch. Filled with information scanned at
      * startup from the jar.
@@ -116,11 +117,12 @@ public class Build {
 
         final String opensearchPrefix = distribution;
         final URL url = getOpenSearchCodeSourceLocation();
+
         final String urlStr = url == null ? "" : url.toString();
         if (urlStr.startsWith("file:/")
             && (urlStr.endsWith(opensearchPrefix + "-" + Version.CURRENT + ".jar")
                 || urlStr.matches(
-                    "(.*)" + opensearchPrefix + "(-)?(.*?)" + Version.CURRENT + "(-)?((alpha|beta|rc)[0-9]+)?(-SNAPSHOT)?.jar"
+                    "(.*)" + opensearchPrefix + "(-)?(.*?)" + Version.CURRENT + "(-)?((alpha|beta|rc|ee)[0-9]+)?(-SNAPSHOT)?.jar"
                 ))) {
             try (JarInputStream jar = new JarInputStream(FileSystemUtils.openFileURLStream(url))) {
                 Manifest manifest = jar.getManifest();
@@ -241,7 +243,7 @@ public class Build {
      * @return true if the build is intended for production use
      */
     public boolean isProductionRelease() {
-        return version.matches("[0-9]+\\.[0-9]+\\.[0-9]+");
+        return version.matches("[0-9]+\\.[0-9]+\\.[0-9]+") || version.matches("[0-9]+\\.[0-9]+\\.[0-9]+-ee[0-9]+");
     }
 
     @Override

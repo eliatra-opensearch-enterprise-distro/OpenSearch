@@ -201,7 +201,7 @@ Closure commonPackageConfig(String type, boolean jdk, String architecture) {
       assert type == 'rpm'
       into('/usr/share/opensearch') {
         from(rootProject.file('licenses')) {
-          include 'APACHE-LICENSE-2.0.txt'
+          include 'ELIATRA-LICENSE.txt'
           rename { 'LICENSE.txt' }
         }
         fileMode 0644
@@ -479,7 +479,7 @@ subprojects {
           String licenseFilename
           copyrightPath = packageExtractionDir.toPath().resolve("usr/share/doc/opensearch/copyright")
           expectedLicense = "ASL-2.0"
-          licenseFilename = "APACHE-LICENSE-2.0.txt"
+          licenseFilename = "ELIATRA-LICENSE.txt"
           final List<String> header = Arrays.asList("Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/",
             "Copyright: Elasticsearch B.V. <info@elastic.co>",
             "Copyright: OpenSearch Contributors",
@@ -494,7 +494,7 @@ subprojects {
       tasks.named("checkLicense").configure {
         onlyIf rpmExists
         doLast {
-          String licenseFilename = "APACHE-LICENSE-2.0.txt"
+          String licenseFilename = "ELIATRA-LICENSE.txt"
           final List<String> licenseLines = Files.readAllLines(rootDir.toPath().resolve("licenses/" + licenseFilename))
           final Path licensePath = packageExtractionDir.toPath().resolve("usr/share/opensearch/LICENSE.txt")
           assertLinesInFile(licensePath, licenseLines)

@@ -35,7 +35,7 @@ opensearchplugin {
   description 'An example allowlisting additional classes and methods in painless'
   classname 'org.opensearch.example.painlesswhitelist.MyWhitelistPlugin'
   extendedPlugins = ['lang-painless']
-  licenseFile rootProject.file('licenses/APACHE-LICENSE-2.0.txt')
+  licenseFile rootProject.file('licenses/ELIATRA-LICENSE.txt')
   noticeFile rootProject.file('NOTICE.txt')
 }
 

@@ -1,12 +1,9 @@
-* text eol=lf
-*.bat binary
-*.zip binary
-*.exe binary
-*.epub binary
-*.pdf binary
-*.vsdx binary
-*.doc binary
-*.bcfks binary
-*.crt binary
-*.p12 binary
-*.txt text=auto
+*.md merge=ignore
+LICENSE* merge=ignore
+NOTICE* merge=ignore
+.github/ISSUE_TEMPLATE/* merge=ignore
+.github/ISSUE_TEMPLATE/**/* merge=ignore
+.github/CODEOWNERS merge=ignore
+.github/*.yml merge=ignore
+.github/*.md merge=ignore
+.eliatra/**/* merge=ignore

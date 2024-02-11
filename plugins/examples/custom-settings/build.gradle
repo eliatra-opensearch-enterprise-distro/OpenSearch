@@ -34,7 +34,7 @@ opensearchplugin {
   name 'custom-settings'
   description 'An example plugin showing how to register custom settings'
   classname 'org.opensearch.example.customsettings.ExampleCustomSettingsPlugin'
-  licenseFile rootProject.file('licenses/APACHE-LICENSE-2.0.txt')
+  licenseFile rootProject.file('licenses/ELIATRA-LICENSE.txt')
   noticeFile rootProject.file('NOTICE.txt')
 }
 

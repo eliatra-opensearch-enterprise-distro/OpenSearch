@@ -12,7 +12,7 @@ opensearchplugin {
   description 'Plugin for identity features in OpenSearch.'
   classname 'org.opensearch.identity.shiro.ShiroIdentityPlugin'
   name project.name
-  licenseFile rootProject.file('licenses/APACHE-LICENSE-2.0.txt')
+  licenseFile rootProject.file('licenses/ELIATRA-LICENSE.txt')
   noticeFile rootProject.file('NOTICE.txt')
 }
 

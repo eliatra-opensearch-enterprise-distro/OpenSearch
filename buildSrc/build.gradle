@@ -310,16 +310,16 @@ class VersionPropertiesLoader {
       throw new IllegalStateException("OpenSearch version is missing from properties.")
     }
     if (opensearch.matches("[0-9]+\\.[0-9]+\\.[0-9]+") == false) {
-      throw new IllegalStateException(
-        "Expected opensearch version to be numbers only of the form  X.Y.Z but it was: " +
-          opensearch
-      )
+      //throw new IllegalStateException(
+      //  "Expected opensearch version to be numbers only of the form  X.Y.Z but it was: " +
+      //    opensearch
+      //)
     }
     String qualifier = systemProperties.getProperty("build.version_qualifier", "");
     if (qualifier.isEmpty() == false) {
-      if (qualifier.matches("(alpha|beta|rc)\\d+") == false) {
-        throw new IllegalStateException("Invalid qualifier: " + qualifier)
-      }
+      //if (qualifier.matches("(alpha|beta|rc)\\d+") == false) {
+      //  throw new IllegalStateException("Invalid qualifier: " + qualifier)
+      //}
       opensearch += "-" + qualifier
     }
     final String buildSnapshotSystemProperty = systemProperties.getProperty("build.snapshot", "true");

@@ -75,7 +75,7 @@ CopySpec archiveFiles(CopySpec modulesFiles, String distributionType, String pla
         include 'README.md'
       }
       from(rootProject.file('licenses')) {
-        include 'APACHE-LICENSE-2.0.txt'
+        include 'ELIATRA-LICENSE.txt'
         rename { 'LICENSE.txt' }
       }
 

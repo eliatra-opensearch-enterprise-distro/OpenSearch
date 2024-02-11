@@ -62,7 +62,7 @@ public final class Version implements Comparable<Version> {
         RELAXED
     }
 
-    private static final Pattern pattern = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)(-alpha\\d+|-beta\\d+|-rc\\d+)?(-SNAPSHOT)?");
+    private static final Pattern pattern = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)(-alpha\\d+|-beta\\d+|-rc\\d+|-ee\\d+)?(-SNAPSHOT)?");
 
     private static final Pattern relaxedPattern = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)(-[a-zA-Z0-9_]+|\\+[a-zA-Z0-9_]+)*?");
 
@@ -95,10 +95,10 @@ public final class Version implements Comparable<Version> {
         Objects.requireNonNull(s);
         Matcher matcher = mode == Mode.STRICT ? pattern.matcher(s) : relaxedPattern.matcher(s);
         if (matcher.matches() == false) {
-            String expected = mode == Mode.STRICT
-                ? "major.minor.revision[-(alpha|beta|rc)Number][-SNAPSHOT]"
-                : "major.minor.revision[-extra]";
-            throw new IllegalArgumentException("Invalid version format: '" + s + "'. Should be " + expected);
+        //    String expected = mode == Mode.STRICT
+        //        ? "major.minor.revision[-(alpha|beta|rc)Number][-SNAPSHOT]"
+        //        : "major.minor.revision[-extra]";
+            throw new IllegalArgumentException("Invalid version format: '" + s + "'. Mode: " + mode);
         }
 
         return new Version(Integer.parseInt(matcher.group(1)), parseSuffixNumber(matcher.group(2)), parseSuffixNumber(matcher.group(3)));

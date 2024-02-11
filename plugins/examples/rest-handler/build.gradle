@@ -38,7 +38,7 @@ opensearchplugin {
   name 'rest-handler'
   description 'An example plugin showing how to register a REST handler'
   classname 'org.opensearch.example.resthandler.ExampleRestHandlerPlugin'
-  licenseFile rootProject.file('licenses/APACHE-LICENSE-2.0.txt')
+  licenseFile rootProject.file('licenses/ELIATRA-LICENSE.txt')
   noticeFile rootProject.file('NOTICE.txt')
 }
 

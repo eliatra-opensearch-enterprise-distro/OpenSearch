@@ -130,7 +130,7 @@ subprojects {
   }
 
   plugins.withType(BuildPlugin).whenPluginAdded {
-    project.licenseFile = project.rootProject.file('licenses/APACHE-LICENSE-2.0.txt')
+    project.licenseFile = project.rootProject.file('licenses/ELIATRA-LICENSE.txt')
     project.noticeFile = project.rootProject.file('NOTICE.txt')
   }
 }
