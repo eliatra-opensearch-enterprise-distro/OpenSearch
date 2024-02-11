@@ -111,7 +111,7 @@ Copyright 2009-2018 Acme Coorp"""
                 "to be [Copyright OpenSearch Contributors] but was [Copyright 2009-2018 Acme Coorp]")
     }
 
-    void license(File file = file("licenses/APACHE-LICENSE-2.0.txt")) {
+    void license(File file = file("licenses/ELIATRA-LICENSE.txt")) {
         file << """license coorp stuff line 1
 license coorp stuff line 2
 license coorp stuff line 3
