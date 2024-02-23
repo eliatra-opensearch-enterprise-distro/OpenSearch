@@ -77,17 +77,18 @@ public class DistributionDownloadPlugin implements Plugin<Project> {
     private static final String SNAPSHOT_REPO_NAME_ES = "elasticsearch-snapshots";
     private static final String FAKE_SNAPSHOT_IVY_GROUP_ES = "elasticsearch-distribution-snapshot";
 
-    //orig: core/opensearch/1.3.14-ee1/opensearch-min- 1.3.14     -ee1-linux-x64.tar.gz
-    ///     core/opensearch/[revision]/[module]  -min- [revision](-[classifier]).[ext]";
+    // orig: core/opensearch/1.3.14-ee1/opensearch-min- 1.3.14 -ee1-linux-x64.tar.gz
+    /// core/opensearch/[revision]/[module] -min- [revision](-[classifier]).[ext]";
 
-    //eliatra: 1.3.14-ee1/opensearch/x64/linux/tar/opensearch-min-1.3.14-ee1-linux-x64.tar.gz
-    private static final String RELEASE_PATTERN_LAYOUT = "/[revision]/opensearch/x64/linux/tar/[module]-min-[revision](-[classifier]).[ext]";
+    // eliatra: 1.3.14-ee1/opensearch/x64/linux/tar/opensearch-min-1.3.14-ee1-linux-x64.tar.gz
+    private static final String RELEASE_PATTERN_LAYOUT =
+        "/[revision]/opensearch/x64/linux/tar/[module]-min-[revision](-[classifier]).[ext]";
     private static final String SNAPSHOT_PATTERN_LAYOUT =
         "/snapshots/core/opensearch/[revision]/[module]-min-[revision](-[classifier])-latest.[ext]";
 
     // https://ci.opensearch.org/ci/dbc/distribution-build-opensearch/2.11.1-ee1/latest/linux/x64/tar/builds/opensearch/plugins/opensearch-job-scheduler-2.11.1.0.zip
     // no match for anomaly-detection sub project
-    //                          /ci/dbc/distribution-build-opensearch/[revision]/latest/linux/x64/tar/dist/opensearch/          [module]-[revision](-[classifier]).[ext]
+    // /ci/dbc/distribution-build-opensearch/[revision]/latest/linux/x64/tar/dist/opensearch/ [module]-[revision](-[classifier]).[ext]
     private static final String BUNDLE_PATTERN_LAYOUT =
         "/PROBABLY-UNUSED/UNUSEDci/dbc/distribution-build-opensearch/[revision]/latest/linux/x64/tar/dist/opensearch/[module]-[revision](-[classifier]).[ext]";
 
@@ -231,14 +232,15 @@ public class DistributionDownloadPlugin implements Plugin<Project> {
                     "https://maven.eliatra.com/artifactory",
                     FAKE_IVY_GROUP,
                     "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT,
-                    "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","arm64/linux/tar"),
-                    "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","x64/windows/zip"),
+                    "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar", "arm64/linux/tar"),
+                    "/eliatra-opensearch-enterprise-distro-staging" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar", "x64/windows/zip"),
                     "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT,
-                    "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","arm64/linux/tar"),
-                    "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","x64/windows/zip"),
+                    "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar", "arm64/linux/tar"),
+                    "/eliatra-opensearch-enterprise-distro-releases" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar", "x64/windows/zip"),
                     "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT,
-                    "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","arm64/linux/tar"),
-                    "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar","x64/windows/zip")
+                    "/eliatra-opensearch-enterprise-distro-releases-rc"
+                        + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar", "arm64/linux/tar"),
+                    "/eliatra-opensearch-enterprise-distro-releases-rc" + RELEASE_PATTERN_LAYOUT.replace("x64/linux/tar", "x64/windows/zip")
                 );
                 addIvyRepo(
                     project,
