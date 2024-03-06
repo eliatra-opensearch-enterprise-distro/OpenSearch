@@ -130,7 +130,8 @@ public class GlobalBuildInfoPlugin implements Plugin<Project> {
             params.setInFipsJvm(Util.getBooleanProperty("tests.fips.enabled", false));
             params.setIsSnapshotBuild(Util.getBooleanProperty("build.snapshot", true));
             if (isInternal) {
-                params.setBwcVersions(resolveBwcVersions(rootDir));
+                params.setBwcVersions(BwcVersions.EMPTY);
+                // params.setBwcVersions(resolveBwcVersions(rootDir));
             }
         });
 

@@ -32,6 +32,7 @@ import org.opensearch.gradle.Version
 import org.opensearch.gradle.VersionProperties
 import org.opensearch.gradle.info.BuildParams
 import org.opensearch.gradle.testclusters.StandaloneRestIntegTestTask
+import org.opensearch.gradle.BwcVersions
 
 apply plugin: 'opensearch.testclusters'
 apply plugin: 'opensearch.standalone-test'
@@ -44,48 +45,54 @@ restResources {
   }
 }
 
-for (Version bwcVersion : BuildParams.bwcVersions.wireCompatible) {
-  if (bwcVersion == VersionProperties.getOpenSearchVersion()) {
-    // Not really a mixed cluster
-    continue;
-  }
+if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
+  for (Version bwcVersion : BuildParams.bwcVersions.wireCompatible) {
+    if (bwcVersion == VersionProperties.getOpenSearchVersion()) {
+      // Not really a mixed cluster
+      continue;
+    }
 
   String baseName = "v${bwcVersion}"
 
-  /* This project runs the core REST tests against a 4 node cluster where two of
-     the nodes has a different minor.  */
-  testClusters {
-    "${baseName}" {
-      versions = [bwcVersion.toString(), project.version]
-      numberOfNodes = 4
+    /* This project runs the core REST tests against a 4 node cluster where two of
+      the nodes has a different minor.  */
+    testClusters {
+      "${baseName}" {
+        versions = [bwcVersion.toString(), project.version]
+        numberOfNodes = 4
 
-      setting 'path.repo', "${buildDir}/cluster/shared/repo/${baseName}"
+        setting 'path.repo', "${buildDir}/cluster/shared/repo/${baseName}"
+      }
     }
-  }
 
-  tasks.register("${baseName}#mixedClusterTest", StandaloneRestIntegTestTask) {
-    useCluster testClusters."${baseName}"
-    mustRunAfter(precommit)
-    doFirst {
-      delete("${buildDir}/cluster/shared/repo/${baseName}")
-      // Getting the endpoints causes a wait for the cluster
-      println "Test cluster endpoints are: ${-> testClusters."${baseName}".allHttpSocketURI.join(",")}"
-      println "Upgrading one node to create a mixed cluster"
-      testClusters."${baseName}".nextNodeToNextVersion()
-      // Getting the endpoints causes a wait for the cluster
-      println "Upgrade complete, endpoints are: ${-> testClusters."${baseName}".allHttpSocketURI.join(",")}"
-      println "Upgrading another node to create a mixed cluster"
-      testClusters."${baseName}".nextNodeToNextVersion()
-      println "Upgrading complete, endpoints are: ${-> testClusters."${baseName}".allHttpSocketURI.join(",")}"
+    tasks.register("${baseName}#mixedClusterTest", StandaloneRestIntegTestTask) {
+      useCluster testClusters."${baseName}"
+      mustRunAfter(precommit)
+      doFirst {
+        delete("${buildDir}/cluster/shared/repo/${baseName}")
+        // Getting the endpoints causes a wait for the cluster
+        println "Test cluster endpoints are: ${-> testClusters."${baseName}".allHttpSocketURI.join(",")}"
+        println "Upgrading one node to create a mixed cluster"
+        testClusters."${baseName}".nextNodeToNextVersion()
+        // Getting the endpoints causes a wait for the cluster
+        println "Upgrade complete, endpoints are: ${-> testClusters."${baseName}".allHttpSocketURI.join(",")}"
+        println "Upgrading another node to create a mixed cluster"
+        testClusters."${baseName}".nextNodeToNextVersion()
+        println "Upgrading complete, endpoints are: ${-> testClusters."${baseName}".allHttpSocketURI.join(",")}"
 
-      nonInputProperties.systemProperty('tests.rest.cluster', "${-> testClusters."${baseName}".allHttpSocketURI.join(",")}")
-      nonInputProperties.systemProperty('tests.clustername', "${-> testClusters."${baseName}".getName()}")
+        nonInputProperties.systemProperty('tests.rest.cluster', "${-> testClusters."${baseName}".allHttpSocketURI.join(",")}")
+        nonInputProperties.systemProperty('tests.clustername', "${-> testClusters."${baseName}".getName()}")
+      }
+      systemProperty 'tests.upgrade_from_version', bwcVersionStr
+      systemProperty 'tests.path.repo', "${buildDir}/cluster/shared/repo/${baseName}"
+      onlyIf { project.bwc_tests_enabled }
     }
     systemProperty 'tests.path.repo', "${buildDir}/cluster/shared/repo/${baseName}"
     onlyIf { project.bwc_tests_enabled }
   }
 
-  tasks.register(bwcTaskName(bwcVersion)) {
-    dependsOn "${baseName}#mixedClusterTest"
+    tasks.register(bwcTaskName(bwcVersion)) {
+      dependsOn "${baseName}#mixedClusterTest"
+    }
   }
 }

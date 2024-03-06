@@ -32,18 +32,20 @@ apply plugin:"opensearch.internal-distribution-bwc-setup"
 
 import org.opensearch.gradle.Version
 import org.opensearch.gradle.info.BuildParams
+import org.opensearch.gradle.BwcVersions
 
-
-BuildParams.getBwcVersions().forPreviousUnreleased { unreleasedVersion ->
-    project(unreleasedVersion.gradleProjectPath) {
-        Version currentVersion = Version.fromString(version)
-        TaskProvider<Task> resolveAllBwcDepsTaskProvider = bwcSetup.bwcTask("resolveAllBwcDependencies") {
-            t -> t.args("resolveAllDependencies")
-        }
-        if (currentVersion.getMinor() == 0 && currentVersion.getRevision() == 0) {
-            // We only want to resolve dependencies for live versions of master, without cascading this to older versions
-            tasks.named("resolveAllDependencies").configure {
-                dependsOn(resolveAllBwcDepsTaskProvider)
+if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
+    BuildParams.getBwcVersions().forPreviousUnreleased { unreleasedVersion ->
+        project(unreleasedVersion.gradleProjectPath) {
+            Version currentVersion = Version.fromString(version)
+            TaskProvider<Task> resolveAllBwcDepsTaskProvider = bwcSetup.bwcTask("resolveAllBwcDependencies") {
+                t -> t.args("resolveAllDependencies")
+            }
+            if (currentVersion.getMinor() == 0 && currentVersion.getRevision() == 0) {
+                // We only want to resolve dependencies for live versions of master, without cascading this to older versions
+                tasks.named("resolveAllDependencies").configure {
+                    dependsOn(resolveAllBwcDepsTaskProvider)
+                }
             }
         }
     }
