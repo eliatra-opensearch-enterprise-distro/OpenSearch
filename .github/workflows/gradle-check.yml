@@ -1,4 +1,4 @@
-name: Gradle Check (Jenkins)
+name: Gradle Check (GH)
 on:
   push:
     branches-ignore:
