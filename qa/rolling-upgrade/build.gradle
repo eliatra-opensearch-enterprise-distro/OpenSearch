@@ -134,5 +134,4 @@ if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
     tasks.register(bwcTaskName(bwcVersion)) {
       dependsOn tasks.named("${baseName}#upgradedClusterTest")
     }
-  }
 }

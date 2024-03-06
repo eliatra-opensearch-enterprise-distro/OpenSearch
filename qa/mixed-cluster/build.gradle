@@ -94,5 +94,4 @@ if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
     tasks.register(bwcTaskName(bwcVersion)) {
       dependsOn "${baseName}#mixedClusterTest"
     }
-  }
 }
