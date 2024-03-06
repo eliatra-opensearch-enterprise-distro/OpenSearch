@@ -1,5 +1,6 @@
 name: Gradle Check (GH)
 on:
+  workflow_dispatch:
   push:
     branches-ignore:
       - 'backport/**'
