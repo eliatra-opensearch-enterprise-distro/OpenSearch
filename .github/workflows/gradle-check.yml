@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 11, 17 ]
+        java: [ 17 ]
     steps:
       - name: Checkout OpenSearch repo
         uses: actions/checkout@v4
@@ -27,6 +27,9 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: temurin
-      - name: Run Gradle
+      - name: Run gradle integTest
         run: |
-          ./gradlew clean test check integTest --continue
+              ./gradlew integTest --continue
+      - name: Run gradle check
+        run: |
+              ./gradlew check --continue
