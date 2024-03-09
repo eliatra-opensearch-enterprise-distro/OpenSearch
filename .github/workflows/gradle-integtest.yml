@@ -1,4 +1,4 @@
-name: Gradle Check (GH)
+name: Gradle Check Integtest (GH)
 on:
   workflow_dispatch:
   push:
@@ -27,10 +27,6 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: temurin
-      - name: Run gradle check
+      - name: Run gradle integTest
         run: |
-              
-              ./gradlew clean || true
-              ./gradlew --stop || true
-              rm -rf ~/.gradle
-              ./gradlew check --no-daemon --no-scan --continue
+              ./gradlew integTest --continue
