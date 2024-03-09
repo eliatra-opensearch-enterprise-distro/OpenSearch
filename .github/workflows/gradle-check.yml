@@ -11,7 +11,7 @@ on:
 
 jobs:
   gradle-check:
-    runs-on: ubuntu-latest
+    runs-on: warp-ubuntu-latest-x64-4x
     timeout-minutes: 360
     strategy:
       fail-fast: false
@@ -29,4 +29,4 @@ jobs:
           distribution: temurin
       - name: Run Gradle
         run: |
-          ./gradlew test check integTest --continue
+          ./gradlew clean test check integTest --continue
