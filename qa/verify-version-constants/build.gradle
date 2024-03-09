@@ -39,6 +39,9 @@ apply plugin: 'opensearch.testclusters'
 apply plugin: 'opensearch.standalone-test'
 apply from : "$rootDir/gradle/bwc-test.gradle"
 
+testingConventions.enabled = false
+
+
 if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
 
   for (Version bwcVersion : BuildParams.bwcVersions.indexCompatible) {

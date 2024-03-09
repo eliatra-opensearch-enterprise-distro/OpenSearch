@@ -39,6 +39,8 @@ apply plugin: 'opensearch.standalone-test'
 apply from : "$rootDir/gradle/bwc-test.gradle"
 apply plugin: 'opensearch.rest-resources'
 
+testingConventions.enabled = false
+
 dependencies {
   testImplementation project(":client:rest-high-level")
 }
