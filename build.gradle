@@ -119,7 +119,7 @@ subprojects {
         }
         maven {
           name = 'Snapshots'
-          url = 'https://aws.oss.sonatype.org/content/repositories/snapshots'
+          url = 'https://maven.eliatra.com:443/artifactory/eliatra-opensearch-enterprise-distro-mvn-snapshots'
           credentials {
             username "$System.env.SONATYPE_USERNAME"
             password "$System.env.SONATYPE_PASSWORD"
