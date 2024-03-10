@@ -32,7 +32,10 @@ jobs:
               
               ./gradlew clean || true
               ./gradlew --stop || true
-              rm -rf ~/.gradle
+              sleep 2
+              rm -rf ~/.gradle || true
+              sleep 2
+              rm -rf ~/.gradle || true
               ./gradlew check --no-daemon --no-scan --continue
 
       - name: Upload test results
