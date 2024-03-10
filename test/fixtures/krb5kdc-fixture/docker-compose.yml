@@ -1,6 +1,8 @@
 version: '3'
 services:
   peppa:
+    extra_hosts:
+      - "kerberos.build.opensearch.org:127.0.0.1"
     hostname: kerberos.build.opensearch.org
     build:
       context: .
@@ -14,6 +16,8 @@ services:
       - "4444"
       - "88/udp"
   hdfs:
+    extra_hosts:
+      - "kerberos.build.opensearch.org:127.0.0.1"
     hostname: kerberos.build.opensearch.org
     build:
       context: .

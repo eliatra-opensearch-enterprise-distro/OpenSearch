@@ -36,7 +36,7 @@ jobs:
               rm -rf ~/.gradle || true
               sleep 2
               rm -rf ~/.gradle || true
-              ./gradlew check --no-daemon --no-scan --continue
+              ./gradlew check --no-daemon --no-scan --continue --warning-mode=all
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
