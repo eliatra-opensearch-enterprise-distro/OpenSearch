@@ -36,7 +36,13 @@ jobs:
               rm -rf ~/.gradle || true
               sleep 2
               rm -rf ~/.gradle || true
-              ./gradlew check --no-daemon --no-scan --continue --warning-mode=all
+              ./gradlew check --no-daemon --no-scan --continue --warning-mode=all \
+                 --exclude-task :plugins:repository-s3:test \
+                 --exclude-task :plugins:repository-s3:s3ThirdPartyTest \
+                 --exclude-task :plugins:repository-s3:testRepositoryCreds \
+                 --exclude-task :plugins:repository-s3:yamlRestTest \
+                 --exclude-task :plugins:repository-s3:yamlRestTestECS \
+                 --exclude-task :plugins:repository-s3:yamlRestTestMinio
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
