@@ -160,6 +160,14 @@ public class TestFixturesPlugin implements Plugin<Project> {
             composeExtension.getUseComposeFiles().set(Collections.singletonList(DOCKER_COMPOSE_YML));
             composeExtension.getRemoveContainers().set(true);
 
+            final String projectName = composeExtension.getProjectName().get();
+            project.getLogger().info("Project name for docker compose: " + projectName);
+
+            if (projectName.endsWith("_")) {
+                composeExtension.setProjectName(projectName.substring(0, projectName.length() - 1));
+                project.getLogger().info("Changed project name for docker compose to : " + composeExtension.getProjectName().get());
+            }
+
             // Increase the Docker Compose HTTP timeout to 120 sec (the default is 60)
             final Integer timeout = ext.has("dockerComposeHttpTimeout") ? (Integer) ext.get("dockerComposeHttpTimeout") : 120;
             composeExtension.getEnvironment().put("COMPOSE_HTTP_TIMEOUT", timeout);

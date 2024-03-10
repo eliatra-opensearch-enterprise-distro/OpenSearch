@@ -29,7 +29,7 @@ jobs:
           distribution: temurin
       - name: Run gradle integTest
         run: |
-              ./gradlew integTest --continue
+              ./gradlew integTest --continue --stacktrace --info
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()

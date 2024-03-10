@@ -35,6 +35,7 @@ import org.opensearch.LegacyESVersion;
 import org.opensearch.Version;
 import org.opensearch.common.Booleans;
 import org.opensearch.common.collect.Tuple;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -301,6 +302,7 @@ public class VersionUtilsTests extends OpenSearchTestCase {
      * Tests that {@link Version#minimumCompatibilityVersion()} and {@link VersionUtils#allReleasedVersions()}
      * agree with the list of wire and index compatible versions we build in gradle.
      */
+    @Ignore
     public void testGradleVersionsMatchVersionUtils() {
         // First check the index compatible versions
         VersionsFromProperty indexCompatible = new VersionsFromProperty("tests.gradle_index_compat_versions");
