@@ -1,4 +1,4 @@
-name: Gradle Check Integtest (GH)
+name: Gradle Integtest (GH)
 on:
   workflow_dispatch:
   push:
@@ -10,7 +10,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  gradle-check:
+  gradle-integtest:
     runs-on: warp-ubuntu-latest-x64-4x
     timeout-minutes: 360
     strategy:
@@ -30,3 +30,10 @@ jobs:
       - name: Run gradle integTest
         run: |
               ./gradlew integTest --continue
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integ-test-results-java-${{ matrix.java }}
+          path: |
+                **/build/reports/tests
