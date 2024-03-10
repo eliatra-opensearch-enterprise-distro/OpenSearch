@@ -107,8 +107,7 @@ public class InternalDistributionArchiveCheckPlugin implements Plugin<Project> {
                 @Override
                 public void execute(Task task) {
                     final List<String> noticeLines = Arrays.asList(
-                        "OpenSearch (https://opensearch.org/)",
-                        "Copyright OpenSearch Contributors"
+                        "Copyright Eliatra"
                     );
                     final Path noticePath = checkExtraction.get()
                         .getDestinationDir()
