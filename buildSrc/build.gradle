@@ -136,7 +136,7 @@ dependencies {
   implementation('org.ajoberstar.grgit:grgit-core:5.2.0') {
     exclude group: 'org.eclipse.jgit', module: 'org.eclipse.jgit'
   }
-  implementation 'org.eclipse.jgit:org.eclipse.jgit:6.7.0.202309050840-r'
+  implementation 'org.eclipse.jgit:org.eclipse.jgit:6.9.0.202403050737-r'
 }
 
 configurations.all {
