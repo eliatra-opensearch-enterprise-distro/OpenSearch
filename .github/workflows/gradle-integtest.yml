@@ -1,0 +1,39 @@
+name: Gradle Integtest (GH)
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'backport/**'
+      - 'create-pull-request/**'
+      - 'dependabot/**'
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  gradle-integtest:
+    runs-on: warp-ubuntu-latest-x64-4x
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ 17 ]
+    steps:
+      - name: Checkout OpenSearch repo
+        uses: actions/checkout@v4
+        #with:
+        #  ref: ${{ github.event.pull_request.head.sha }}
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: temurin
+      - name: Run gradle integTest
+        run: |
+              ./gradlew integTest --continue --warning-mode=all
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integ-test-results-java-${{ matrix.java }}
+          path: |
+                **/build/reports/tests

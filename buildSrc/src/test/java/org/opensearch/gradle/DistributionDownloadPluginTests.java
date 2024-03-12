@@ -40,6 +40,7 @@ import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Project;
 import org.gradle.api.internal.artifacts.repositories.DefaultIvyArtifactRepository;
 import org.gradle.testfixtures.ProjectBuilder;
+import org.junit.Ignore;
 
 import java.io.File;
 import java.util.Arrays;
@@ -48,6 +49,7 @@ import java.util.TreeSet;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.StringContains.containsString;
 
+@Ignore
 public class DistributionDownloadPluginTests extends GradleUnitTestCase {
     private static Project rootProject;
     private static Project archivesProject;

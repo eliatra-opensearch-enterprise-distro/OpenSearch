@@ -21,7 +21,7 @@ import java.nio.file.Paths
 
 class CheckCompatibilityTask extends DefaultTask {
 
-    static final String REPO_URL = 'https://raw.githubusercontent.com/opensearch-project/opensearch-plugins/main/plugins/.meta'
+    static final String REPO_URL = 'https://raw.githubusercontent.com/eliatra-opensearch-enterprise-distro/opensearch-plugins/main/plugins/.meta'
 
     @Input
     List repositoryUrls = project.hasProperty('repositoryUrls') ? project.property('repositoryUrls').split(',') : getRepoUrls()

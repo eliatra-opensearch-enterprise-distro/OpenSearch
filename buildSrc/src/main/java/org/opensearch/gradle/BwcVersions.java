@@ -101,6 +101,8 @@ public class BwcVersions {
         "\\W+public static final (LegacyES)?Version V_(\\d+)_(\\d+)_(\\d+)(_alpha\\d+|_beta\\d+|_rc\\d+|_ee\\d+)? .*"
     );
 
+    public static final BwcVersions EMPTY = new BwcVersions();
+
     private final Version currentVersion;
     private final Map<Integer, List<Version>> groupByMajor;
     private final Map<Version, UnreleasedVersionInfo> unreleased;
@@ -170,6 +172,12 @@ public class BwcVersions {
             );
         }
         this.unreleased = Collections.unmodifiableMap(unreleased);
+    }
+
+    private BwcVersions() {
+        this.currentVersion = Version.fromString(VersionProperties.getOpenSearch());
+        this.unreleased = Collections.emptyMap();
+        this.groupByMajor = Collections.emptyMap();
     }
 
     private void assertNoOlderThanTwoMajors() {

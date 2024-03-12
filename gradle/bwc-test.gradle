@@ -11,13 +11,15 @@
 
 import org.opensearch.gradle.Version
 import org.opensearch.gradle.info.BuildParams
+import org.opensearch.gradle.BwcVersions
+
 
 ext.bwcTaskName = { Version version ->
   return "v${version}#bwcTest"
 }
 
 def bwcTestSnapshots = tasks.register("bwcTestSnapshots") {
-  if (project.bwc_tests_enabled) {
+  if (project.bwc_tests_enabled && BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
     dependsOn tasks.matching { task -> BuildParams.bwcVersions.unreleased.any { version -> bwcTaskName(version) == task.name } }
   }
 }
