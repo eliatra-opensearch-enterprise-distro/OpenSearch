@@ -32,32 +32,40 @@ import org.opensearch.gradle.Version
 import org.opensearch.gradle.VersionProperties
 import org.opensearch.gradle.info.BuildParams
 import org.opensearch.gradle.testclusters.StandaloneRestIntegTestTask
+import org.opensearch.gradle.BwcVersions
+
 
 apply plugin: 'opensearch.testclusters'
 apply plugin: 'opensearch.standalone-test'
 apply from : "$rootDir/gradle/bwc-test.gradle"
 
-for (Version bwcVersion : BuildParams.bwcVersions.indexCompatible) {
-  if (bwcVersion.before('6.3.0')) {
-    continue;
-  }
-  String baseName = "v${bwcVersion}"
+testingConventions.enabled = false
 
-  testClusters {
-    "${baseName}" {
-      version = bwcVersion.toString()
-      setting 'http.content_type.required', 'true'
+
+if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
+
+  for (Version bwcVersion : BuildParams.bwcVersions.indexCompatible) {
+    if (bwcVersion.before('6.3.0')) {
+      continue;
     }
-  }
+    String baseName = "v${bwcVersion}"
 
-  tasks.register("${baseName}#integTest", StandaloneRestIntegTestTask) {
-    useCluster testClusters."${baseName}"
-    nonInputProperties.systemProperty('tests.rest.cluster', "${-> testClusters."${baseName}".allHttpSocketURI.join(",")}")
-    nonInputProperties.systemProperty('tests.clustername', "${-> testClusters."${baseName}".getName()}")
-  }
+    testClusters {
+      "${baseName}" {
+        version = bwcVersion.toString()
+        setting 'http.content_type.required', 'true'
+      }
+    }
 
-  tasks.register(bwcTaskName(bwcVersion)) {
-    dependsOn "${baseName}#integTest"
+    tasks.register("${baseName}#integTest", StandaloneRestIntegTestTask) {
+      useCluster testClusters."${baseName}"
+      nonInputProperties.systemProperty('tests.rest.cluster', "${-> testClusters."${baseName}".allHttpSocketURI.join(",")}")
+      nonInputProperties.systemProperty('tests.clustername', "${-> testClusters."${baseName}".getName()}")
+    }
+
+    tasks.register(bwcTaskName(bwcVersion)) {
+      dependsOn "${baseName}#integTest"
+    }
   }
 }
 

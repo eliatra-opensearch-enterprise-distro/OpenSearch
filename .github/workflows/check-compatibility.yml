@@ -6,7 +6,6 @@ on:
 
 jobs:
   check-compatibility:
-    if: github.repository == 'opensearch-project/OpenSearch'
     permissions:
       contents: read
     runs-on: ubuntu-latest

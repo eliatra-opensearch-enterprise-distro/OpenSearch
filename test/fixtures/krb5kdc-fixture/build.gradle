@@ -27,6 +27,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+//tasks.whenTaskAdded {task ->
+    //project.logger.error(task.name)
+//    task.enabled = false
+//}
+
+
 apply plugin: 'opensearch.test.fixtures'
 
 List<String> services = ["peppa", "hdfs"]
@@ -39,8 +46,8 @@ preProcessFixture.doLast {
 
 postProcessFixture {
   // always run the task, otherwise the folders won't be created
-  outputs.upToDateWhen { 
-    false 
+  outputs.upToDateWhen {
+    false
   }
   inputs.dir("${testFixturesDir}/shared")
   services.each { service ->
