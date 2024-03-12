@@ -27,7 +27,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.opensearch.gradle.info.BuildParams;
+import org.opensearch.gradle.info.BuildParams
+import org.opensearch.gradle.BwcVersions
+
 
 apply plugin: 'opensearch.build'
 apply plugin: 'opensearch.publish'
@@ -87,9 +89,13 @@ thirdPartyAudit.ignoreViolations(
 )
 
 test {
-  systemProperty 'tests.gradle_index_compat_versions', BuildParams.bwcVersions.indexCompatible.join(',')
-  systemProperty 'tests.gradle_wire_compat_versions', BuildParams.bwcVersions.wireCompatible.join(',')
-  systemProperty 'tests.gradle_unreleased_versions', BuildParams.bwcVersions.unreleased.join(',')
+  
+  if(BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
+    systemProperty 'tests.gradle_index_compat_versions', BuildParams.bwcVersions.indexCompatible.join(',')
+    systemProperty 'tests.gradle_wire_compat_versions', BuildParams.bwcVersions.wireCompatible.join(',')
+    systemProperty 'tests.gradle_unreleased_versions', BuildParams.bwcVersions.unreleased.join(',')
+  }
+
 }
 
 tasks.register("integTest", Test) {

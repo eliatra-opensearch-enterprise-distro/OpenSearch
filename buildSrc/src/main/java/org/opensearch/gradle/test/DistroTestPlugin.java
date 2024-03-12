@@ -33,6 +33,7 @@
 package org.opensearch.gradle.test;
 
 import org.opensearch.gradle.Architecture;
+import org.opensearch.gradle.BwcVersions;
 import org.opensearch.gradle.DistributionDownloadPlugin;
 import org.opensearch.gradle.OpenSearchDistribution;
 import org.opensearch.gradle.Jdk;
@@ -139,7 +140,8 @@ public class DistroTestPlugin implements Plugin<Project> {
             }
 
             if ((distribution.getType() == OpenSearchDistribution.Type.DEB || distribution.getType() == OpenSearchDistribution.Type.RPM)
-                && distribution.getBundledJdk()) {
+                && distribution.getBundledJdk()
+                && BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
                 for (Version version : BuildParams.getBwcVersions().getIndexCompatible()) {
                     if (version.before("6.3.0")) {
                         continue; // before opening xpack
@@ -257,8 +259,10 @@ public class DistroTestPlugin implements Plugin<Project> {
     private static Map<String, TaskProvider<?>> versionTasks(Project project, String taskPrefix) {
         Map<String, TaskProvider<?>> versionTasks = new HashMap<>();
 
-        for (Version version : BuildParams.getBwcVersions().getIndexCompatible()) {
-            versionTasks.put(version.toString(), project.getTasks().register(taskPrefix + ".v" + version));
+        if (BuildParams.getBwcVersions() != BwcVersions.EMPTY) {
+            for (Version version : BuildParams.getBwcVersions().getIndexCompatible()) {
+                versionTasks.put(version.toString(), project.getTasks().register(taskPrefix + ".v" + version));
+            }
         }
 
         return versionTasks;
